@@ -15,7 +15,6 @@ import { useBooking } from "../../features/bookings/useBooking";
 import { useEffect, useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import { useCheckin } from "./useCheckin";
-import { format, set } from "date-fns";
 import { useSettings } from "../settings/useSettings";
 const Box = styled.div`
   /* Box */
