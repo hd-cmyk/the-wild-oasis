@@ -2,44 +2,53 @@
 
 A comprehensive internal hotel management dashboard for **The Wild Oasis** boutique hotel. This application empowers hotel staff to efficiently manage cabins, bookings, guests, and daily operations.
 
+**🚀 Live Demo:** [https://the-wild-oasis-livid-one.vercel.app](https://the-wild-oasis-livid-one.vercel.app)
+
 ## 🎯 Project Overview
 
 **The Wild Oasis** is a complete hotel management solution consisting of two applications:
+
 - **Admin Dashboard** (This project) - Internal management system for hotel staff
-- **Customer Website** ([21-the-wild-oasis-website](https://github.com/hd-cmyk/21-the-wild-oasis-website)) - Public-facing booking platform for guests
+- **Customer Website** ([the-wild-oasis-website](https://github.com/hd-cmyk/the-wild-oasis-website)) - Public-facing booking platform for guests
 
 ## ✨ Features
 
 ### 📊 Dashboard
+
 - **Real-time Statistics** - Track bookings, sales, check-ins, and occupancy rates
 - **Interactive Charts** - Visualize sales trends and stay duration analytics
 - **Activity Feed** - Monitor recent booking activities and guest check-ins
 
 ### 🏠 Cabin Management
+
 - **CRUD Operations** - Create, read, update, and delete cabin listings
 - **Photo Upload** - Manage cabin images via Supabase Storage
 - **Pricing & Discounts** - Set regular prices and promotional discounts
 - **Capacity Control** - Configure maximum guest capacity per cabin
 
 ### 📅 Booking Management
+
 - **Booking Overview** - View all reservations with filtering and sorting
 - **Status Tracking** - Monitor unconfirmed, checked-in, and checked-out bookings
 - **Guest Information** - Access complete guest details and contact info
 - **Payment Status** - Track paid and unpaid reservations
 
 ### ✅ Check-in / Check-out
+
 - **Guest Check-in** - Process arrivals with payment confirmation
 - **Add Breakfast** - Optional breakfast service during check-in
 - **Quick Check-out** - Streamlined departure process
 - **Status Updates** - Real-time booking status synchronization
 
 ### 👥 User Management
+
 - **Staff Accounts** - Create and manage hotel employee accounts
 - **Secure Authentication** - Email/password login with Supabase Auth
 - **Profile Management** - Update personal info and avatars
 - **Password Reset** - Secure password change functionality
 
 ### ⚙️ Settings
+
 - **Booking Rules** - Configure min/max booking lengths and guest capacity
 - **Pricing** - Set breakfast price per guest
 - **Business Hours** - Manage operational parameters
@@ -62,6 +71,7 @@ A comprehensive internal hotel management dashboard for **The Wild Oasis** bouti
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js 18+ installed
 - Supabase account and project
 - Supabase database tables set up
@@ -69,30 +79,34 @@ A comprehensive internal hotel management dashboard for **The Wild Oasis** bouti
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
-git clone https://github.com/hd-cmyk/17-the-wild-oasis.git
-cd 17-the-wild-oasis
+git clone https://github.com/hd-cmyk/the-wild-oasis.git
+cd the-wild-oasis
 ```
 
 2. **Install dependencies**
+
 ```bash
 npm install
 ```
 
 3. **Set up environment variables**
-Create a `.env` file in the root directory:
+   Create a `.env` file in the root directory:
+
 ```env
 VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_KEY=your_supabase_anon_key
 ```
 
 4. **Run development server**
+
 ```bash
 npm run dev
 ```
 
 5. **Open your browser**
-Navigate to `http://localhost:5173`
+   Navigate to `http://localhost:5173`
 
 ### Build for Production
 
@@ -125,17 +139,20 @@ src/
 ## 🔑 Key Features Implementation
 
 ### Authentication
+
 - Built with Supabase Auth
 - Protected routes with authentication guards
 - User session management
 
 ### Data Management
+
 - React Query for server state management
 - Optimistic updates for better UX
 - Automatic cache invalidation
 - Background data refetching
 
 ### UI/UX
+
 - Fully responsive design
 - Dark mode support (if implemented)
 - Toast notifications for user feedback
@@ -145,6 +162,7 @@ src/
 ## 📊 Database Schema
 
 The application uses Supabase with the following main tables:
+
 - `cabins` - Cabin information and pricing
 - `bookings` - Reservation records
 - `guests` - Guest information
@@ -157,6 +175,7 @@ The application uses Supabase with the following main tables:
 ## 🎓 Learning Outcomes
 
 This project demonstrates:
+
 - Advanced React patterns and best practices
 - React Query for server state management
 - Styled Components for CSS-in-JS
