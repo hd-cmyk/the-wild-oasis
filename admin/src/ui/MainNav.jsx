@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import {
   TiHomeOutline,
-  TiCalculator,
   TiCalendarOutline,
   TiCogOutline,
   TiUserOutline,

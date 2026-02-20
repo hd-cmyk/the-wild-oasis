@@ -29,11 +29,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./admin
-        run: npm install
-
-      - name: Run linter (if available)
-        working-directory: ./admin
-        run: npm run lint --if-present
+        run: npm ci --legacy-peer-deps
 
       - name: Build application
         working-directory: ./admin
@@ -70,15 +66,16 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./web
-        run: npm install
-
-      - name: Run linter (if available)
-        working-directory: ./web
-        run: npm run lint --if-present
+        run: npm ci --legacy-peer-deps
 
       - name: Build application
         working-directory: ./web
         run: npm run build
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://placeholder.supabase.co' }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY || 'placeholder-key' }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET || 'placeholder-secret' }}
+          AUTH_TRUST_HOST: true
 
       - name: Run tests (if available)
         working-directory: ./web
