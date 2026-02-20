@@ -1,0 +1,92 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-admin:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: "admin/package-lock.json"
+
+      - name: Install dependencies
+        working-directory: ./admin
+        run: npm install
+
+      - name: Run linter (if available)
+        working-directory: ./admin
+        run: npm run lint --if-present
+
+      - name: Build application
+        working-directory: ./admin
+        run: npm run build
+
+      - name: Run tests (if available)
+        working-directory: ./admin
+        run: npm test --if-present
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-admin-${{ matrix.node-version }}
+          path: admin/dist/
+          retention-days: 5
+
+  build-web:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: "web/package-lock.json"
+
+      - name: Install dependencies
+        working-directory: ./web
+        run: npm install
+
+      - name: Run linter (if available)
+        working-directory: ./web
+        run: npm run lint --if-present
+
+      - name: Build application
+        working-directory: ./web
+        run: npm run build
+
+      - name: Run tests (if available)
+        working-directory: ./web
+        run: npm test --if-present
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-web-${{ matrix.node-version }}
+          path: web/dist/
+          retention-days: 5
