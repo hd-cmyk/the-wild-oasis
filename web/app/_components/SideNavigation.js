@@ -3,6 +3,7 @@
 import Link from "next/link";
 import {
   CalendarDaysIcon,
+  ChatBubbleLeftRightIcon,
   HomeIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
