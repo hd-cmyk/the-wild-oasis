@@ -159,7 +159,7 @@ export default function ChatWidget() {
                 <div className="max-w-[85%] rounded-2xl bg-stone-100 px-3 py-2 text-sm text-primary-900">
                   <p className="whitespace-pre-wrap">
                     Hi! I&apos;m the Wild Oasis Assistant.
-                    {"\n\n"}
+                    {"\n"}
                     What can I help you with today?
                   </p>
                   <div className="mt-2 flex flex-wrap gap-2">

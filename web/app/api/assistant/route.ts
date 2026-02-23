@@ -15,8 +15,8 @@ export const runtime = "nodejs";
 // event payloads, so we return new Response(stream, { headers }).
 
 function getConfigError(): string | null {
-  if (!process.env.OPENAI_API_KEY) {
-    return "OPENAI_API_KEY is not set. Add it to .env.local.";
+  if (!process.env.GEMINI_API_KEY) {
+    return "GEMINI_API_KEY is not set. Add it to .env.local.";
   }
   if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
     return "Supabase is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local.";
