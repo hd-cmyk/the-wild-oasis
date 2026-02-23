@@ -6,10 +6,10 @@ import { subtractDates } from "../utils/helpers";
 
 import { bookings } from "./data-bookings";
 import { cabins } from "./data-cabins";
+//   minBookingLength: 3,
 import { guests } from "./data-guests";
 
 // const originalSettings = {
-//   minBookingLength: 3,
 //   maxBookingLength: 30,
 //   maxGuestsPerBooking: 10,
 //   breakfastPrice: 15,

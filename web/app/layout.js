@@ -1,6 +1,6 @@
 import Logo from "@/app/_components/Logo";
 import Navigation from "@/app/_components/Navigation";
-
+import ChatWidget from "@/app/_components/ChatWidget";
 import { Josefin_Sans } from "next/font/google";
 
 const josefin = Josefin_Sans({
@@ -34,6 +34,7 @@ export default function RootLayout({ children }) {
             <ReservationProvider>{children}</ReservationProvider>
           </main>
         </div>
+        <ChatWidget />
       </body>
     </html>
   );
