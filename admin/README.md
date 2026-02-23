@@ -1,114 +1,105 @@
-# 🏨 The Wild Oasis - Hotel Management System
+# 🏨 The Wild Oasis – Admin Dashboard
 
-A comprehensive internal hotel management dashboard for **The Wild Oasis** boutique hotel. This application empowers hotel staff to efficiently manage cabins, bookings, guests, and daily operations.
+Internal hotel management dashboard for **The Wild Oasis** boutique hotel. Hotel staff can manage cabins, bookings, guests, and daily operations from this app.
 
-**🚀 Live Demo:** [https://the-wild-oasis-livid-one.vercel.app](https://the-wild-oasis-livid-one.vercel.app)
+**🚀 Live:** [https://the-wild-oasis-two-delta.vercel.app](https://the-wild-oasis-two-delta.vercel.app)
 
-## 🎯 Project Overview
+## 🎯 Overview
 
-**The Wild Oasis** is a complete hotel management solution consisting of two applications:
+This repo is a monorepo. The **admin** app (this folder) is the staff dashboard; the **web** app is the guest-facing booking site.
 
-- **Admin Dashboard** (This project) - Internal management system for hotel staff
-- **Customer Website** ([the-wild-oasis-website](https://github.com/hd-cmyk/the-wild-oasis-website)) - Public-facing booking platform for guests
+- **Admin Dashboard** (this project) – Internal management for hotel staff  
+- **Customer Website** ([../web](../web)) – Public booking platform for guests
 
 ## ✨ Features
 
 ### 📊 Dashboard
 
-- **Real-time Statistics** - Track bookings, sales, check-ins, and occupancy rates
-- **Interactive Charts** - Visualize sales trends and stay duration analytics
-- **Activity Feed** - Monitor recent booking activities and guest check-ins
+- **Real-time stats** – Bookings, sales, check-ins, occupancy
+- **Charts** – Sales trends and stay duration
+- **Activity feed** – Recent bookings and check-ins
 
-### 🏠 Cabin Management
+### 🏠 Cabins
 
-- **CRUD Operations** - Create, read, update, and delete cabin listings
-- **Photo Upload** - Manage cabin images via Supabase Storage
-- **Pricing & Discounts** - Set regular prices and promotional discounts
-- **Capacity Control** - Configure maximum guest capacity per cabin
+- **CRUD** – Create, read, update, delete cabin listings
+- **Photos** – Cabin images via Supabase Storage
+- **Pricing** – Regular price and discount
+- **Capacity** – Max guests per cabin
 
-### 📅 Booking Management
+### 📅 Bookings
 
-- **Booking Overview** - View all reservations with filtering and sorting
-- **Status Tracking** - Monitor unconfirmed, checked-in, and checked-out bookings
-- **Guest Information** - Access complete guest details and contact info
-- **Payment Status** - Track paid and unpaid reservations
+- **Overview** – All reservations with filters and sort
+- **Status** – Unconfirmed, checked-in, checked-out
+- **Guests** – Details and contact info
+- **Payments** – Paid vs unpaid
 
 ### ✅ Check-in / Check-out
 
-- **Guest Check-in** - Process arrivals with payment confirmation
-- **Add Breakfast** - Optional breakfast service during check-in
-- **Quick Check-out** - Streamlined departure process
-- **Status Updates** - Real-time booking status synchronization
+- **Check-in** – Arrivals and payment confirmation
+- **Breakfast** – Optional add-on at check-in
+- **Check-out** – Quick departure flow
+- **Status** – Booking status kept in sync
 
-### 👥 User Management
+### 👥 Users
 
-- **Staff Accounts** - Create and manage hotel employee accounts
-- **Secure Authentication** - Email/password login with Supabase Auth
-- **Profile Management** - Update personal info and avatars
-- **Password Reset** - Secure password change functionality
+- **Staff accounts** – Create and manage employees
+- **Auth** – Email/password with Supabase Auth
+- **Profiles** – Update info and avatars
+- **Password** – Reset and change
 
 ### ⚙️ Settings
 
-- **Booking Rules** - Configure min/max booking lengths and guest capacity
-- **Pricing** - Set breakfast price per guest
-- **Business Hours** - Manage operational parameters
+- **Booking rules** – Min/max nights, capacity
+- **Pricing** – Breakfast price per guest
+- **Business** – Operational parameters
 
 ## 🛠️ Tech Stack
 
-- **Framework:** React 18
-- **Build Tool:** Vite
-- **Routing:** React Router v6
-- **State Management:** React Query (TanStack Query)
-- **Styling:** Styled Components
-- **Backend:** Supabase (PostgreSQL + Authentication + Storage)
-- **Forms:** React Hook Form
-- **Charts:** Recharts
-- **Date Handling:** date-fns
-- **UI Notifications:** React Hot Toast
-- **Error Handling:** React Error Boundary
-- **Icons:** React Icons
+- **Framework:** React 18  
+- **Build:** Vite  
+- **Routing:** React Router v6  
+- **Data:** TanStack Query (React Query)  
+- **Styling:** Styled Components  
+- **Backend:** Supabase (PostgreSQL, Auth, Storage)  
+- **Forms:** React Hook Form  
+- **Charts:** Recharts  
+- **Dates:** date-fns  
+- **Toasts:** React Hot Toast  
+- **Errors:** React Error Boundary  
+- **Icons:** React Icons  
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ installed
-- Supabase account and project
-- Supabase database tables set up
+- Node.js 18+
+- Supabase project with database tables set up
 
-### Installation
+### Install and run
 
-1. **Clone the repository**
-
-```bash
-git clone https://github.com/hd-cmyk/the-wild-oasis.git
-cd the-wild-oasis
-```
-
-2. **Install dependencies**
+From the repo root:
 
 ```bash
+cd admin
 npm install
 ```
 
-3. **Set up environment variables**
-   Create a `.env` file in the root directory:
+Add a `.env` in the `admin` folder:
 
 ```env
 VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_KEY=your_supabase_anon_key
 ```
 
-4. **Run development server**
+Then:
 
 ```bash
 npm run dev
 ```
 
-5. **Open your browser**
-   Navigate to `http://localhost:5173`
+Open [http://localhost:5173](http://localhost:5173).
 
-### Build for Production
+### Build
 
 ```bash
 npm run build
@@ -119,80 +110,32 @@ npm run preview
 
 ```
 src/
-├── features/           # Feature-based modules
-│   ├── authentication/ # Login and user management
-│   ├── bookings/       # Booking operations
-│   ├── cabins/         # Cabin management
-│   ├── check-in-out/   # Check-in/out processes
-│   ├── dashboard/      # Dashboard analytics
-│   └── settings/       # App settings
-├── pages/              # Page components
-├── services/           # API services (Supabase)
-├── ui/                 # Reusable UI components
-├── hooks/              # Custom React hooks
-├── context/            # Context providers
-├── utils/              # Utility functions
-├── styles/             # Global styles
-└── data/               # Sample/seed data
+├── features/
+│   ├── authentication/
+│   ├── bookings/
+│   ├── cabins/
+│   ├── check-in-out/
+│   ├── dashboard/
+│   └── settings/
+├── pages/
+├── services/
+├── ui/
+├── hooks/
+├── context/
+├── utils/
+├── styles/
+└── data/
 ```
 
-## 🔑 Key Features Implementation
+## 📊 Database (Supabase)
 
-### Authentication
+Main tables: `cabins`, `bookings`, `guests`, `settings`.
 
-- Built with Supabase Auth
-- Protected routes with authentication guards
-- User session management
+## 🔗 Related
 
-### Data Management
-
-- React Query for server state management
-- Optimistic updates for better UX
-- Automatic cache invalidation
-- Background data refetching
-
-### UI/UX
-
-- Fully responsive design
-- Dark mode support (if implemented)
-- Toast notifications for user feedback
-- Loading states and error boundaries
-- Confirmation modals for destructive actions
-
-## 📊 Database Schema
-
-The application uses Supabase with the following main tables:
-
-- `cabins` - Cabin information and pricing
-- `bookings` - Reservation records
-- `guests` - Guest information
-- `settings` - Application settings
-
-## 🔗 Related Projects
-
-- [The Wild Oasis Customer Website](https://github.com/hd-cmyk/21-the-wild-oasis-website) - Guest booking platform
-
-## 🎓 Learning Outcomes
-
-This project demonstrates:
-
-- Advanced React patterns and best practices
-- React Query for server state management
-- Styled Components for CSS-in-JS
-- Supabase integration (Database, Auth, Storage)
-- Complex form handling with React Hook Form
-- Data visualization with Recharts
-- Modern React Router patterns
-- Error handling and boundary implementation
+- [Customer website (web)](../web) – Guest booking platform  
+- [Root README](../README.md) – Monorepo overview and live URLs  
 
 ## 📝 License
 
-This project is for educational purposes.
-
-## 👨‍💻 Author
-
-[hd-cmyk](https://github.com/hd-cmyk)
-
-## 🙏 Acknowledgments
-
-Built as part of a React learning journey, implementing real-world hotel management functionality.
+For educational use.
