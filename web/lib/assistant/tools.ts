@@ -1,6 +1,7 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { DynamicStructuredTool } from "@langchain/core/tools";
 import { z } from "zod";
+import { differenceInDays } from "date-fns";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -13,7 +14,7 @@ const supabaseAdmin: SupabaseClient | null =
 export function ensureSupabaseAdmin(): SupabaseClient {
   if (!supabaseAdmin) {
     throw new Error(
-      "Supabase is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY."
+      "Supabase is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local.",
     );
   }
   return supabaseAdmin;
@@ -75,7 +76,7 @@ export function buildAssistantTools(userEmail: string | null | undefined) {
         const { data: bookings, error: bookingsError } = await supabase
           .from("bookings")
           .select(
-            "id, startDate, endDate, status, numGuests, hasBreakfast, isPaid, cabinId"
+            "id, startDate, endDate, status, numGuests, hasBreakfast, isPaid, cabinId",
           )
           .eq("guestId", guest.id)
           .order("startDate", { ascending: false })
@@ -86,8 +87,8 @@ export function buildAssistantTools(userEmail: string | null | undefined) {
           return "Failed to fetch bookings; please try again later.";
         }
 
-        const safeBookings: BookingSummary[] =
-          (bookings ?? []) as BookingSummary[];
+        const safeBookings: BookingSummary[] = (bookings ??
+          []) as BookingSummary[];
 
         return JSON.stringify(safeBookings);
       } catch (error) {
@@ -121,6 +122,44 @@ export function buildAssistantTools(userEmail: string | null | undefined) {
       try {
         const supabase = ensureSupabaseAdmin();
 
+        // Fetch settings and validate booking length BEFORE checking cabins
+        const { data: settingsRow, error: settingsError } = await supabase
+          .from("settings")
+          .select("*")
+          .single();
+
+        if (settingsError) {
+          console.error(
+            "checkAvailability: settings query error",
+            settingsError,
+          );
+          return "Failed to load booking rules; please try again later.";
+        }
+
+        const s = settingsRow as Record<string, unknown> | null;
+        const minNights = Math.max(
+          1,
+          Number(s?.minBookingLength ?? s?.min_booking_length ?? 1),
+        );
+        const maxNights = Math.max(
+          minNights,
+          Number(s?.maxBookingLength ?? s?.max_booking_length ?? 30),
+        );
+
+        const numNights = differenceInDays(
+          new Date(dateTo),
+          new Date(dateFrom),
+        );
+        console.log("dateFrom:", dateFrom);
+        console.log("dateTo:", dateTo);
+
+        if (numNights < minNights) {
+          return `Bookings must be at least ${minNights} night${minNights > 1 ? "s" : ""}. Your requested stay is ${numNights} night${numNights !== 1 ? "s" : ""}. Please choose a longer period.`;
+        }
+        if (numNights > maxNights) {
+          return `Bookings cannot exceed ${maxNights} nights. Your requested stay is ${numNights} nights. Please choose a shorter period.`;
+        }
+
         const { data: cabins, error: cabinsError } = await supabase
           .from("cabins")
           .select("id, name, maxCapacity, regularPrice, discount");
@@ -139,7 +178,7 @@ export function buildAssistantTools(userEmail: string | null | undefined) {
         if (bookingsError) {
           console.error(
             "checkAvailability: bookings query error",
-            bookingsError
+            bookingsError,
           );
           return "Failed to check booking conflicts; please try again later.";
         }
@@ -153,14 +192,14 @@ export function buildAssistantTools(userEmail: string | null | undefined) {
 
         let availableCabins =
           (cabins ?? []).filter(
-            (cabin: { id: number }) => !conflictingCabinIds.has(cabin.id)
+            (cabin: { id: number }) => !conflictingCabinIds.has(cabin.id),
           ) ?? [];
 
         if (typeof guests === "number") {
           availableCabins = availableCabins.filter(
             (cabin: { maxCapacity?: number }) =>
               typeof cabin.maxCapacity === "number" &&
-              cabin.maxCapacity >= guests
+              cabin.maxCapacity >= guests,
           );
         }
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/app/_lib/auth";
 import {
-  createAssistantAgent,
+  createAssistantAgentForMessages,
   runAssistantStream,
   createSSEStream,
 } from "@/lib/assistant";
@@ -18,11 +18,8 @@ function getConfigError(): string | null {
   if (!process.env.OPENAI_API_KEY) {
     return "OPENAI_API_KEY is not set. Add it to .env.local.";
   }
-  if (
-    !process.env.SUPABASE_URL ||
-    !process.env.SUPABASE_SERVICE_ROLE_KEY
-  ) {
-    return "Supabase is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local (use the service_role key, not the anon key).";
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return "Supabase is not configured. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local.";
   }
   return null;
 }
@@ -31,7 +28,7 @@ const MAX_HISTORY_TURNS = 12;
 
 function buildMessages(
   message: string,
-  history: Array<{ role: "user" | "assistant"; content: string }> = []
+  history: Array<{ role: "user" | "assistant"; content: string }> = [],
 ): Array<{ role: "human" | "ai"; content: string }> {
   const trimmed = history.slice(-MAX_HISTORY_TURNS);
   const converted = trimmed
@@ -50,7 +47,7 @@ export async function POST(req: NextRequest) {
   if (!body || typeof body.message !== "string" || !body.message.trim()) {
     return NextResponse.json(
       { error: "Request body must include a non-empty message." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -65,9 +62,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: configError }, { status: 503 });
   }
 
-  const agent = createAssistantAgent(userEmail);
+  const agent = await createAssistantAgentForMessages(userEmail, messages);
   const stream = createSSEStream((emit) =>
-    runAssistantStream(agent, messages, emit)
+    runAssistantStream(agent, messages, emit),
   );
 
   return new Response(stream, {

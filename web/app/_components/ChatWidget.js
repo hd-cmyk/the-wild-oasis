@@ -177,6 +177,14 @@ export default function ChatWidget() {
                     >
                       View my bookings
                     </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSend("Show me the hotel rules and policies")}
+                      className="rounded-full border border-stone-300 bg-white px-3 py-1.5 text-xs text-primary-800 shadow-sm transition hover:border-accent-400 hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-1"
+                    >
+                      Show rules
+                    </button>
+                    
                   </div>
                 </div>
               </div>

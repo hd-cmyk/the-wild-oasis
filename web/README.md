@@ -59,7 +59,8 @@ Set up environment variables
 
 ```bash
 SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_key
+SUPABASE_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key   # Required for assistant (guest bookings, RAG)
 AUTH_GOOGLE_ID=your_google_client_id
 AUTH_GOOGLE_SECRET=your_google_client_secret
 AUTH_SECRET=your_nextauth_secret
